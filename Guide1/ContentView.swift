@@ -9,14 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var text = "Knock Knock!"
+    @State private var isButtonVisible = true
     
     var body: some View {
         VStack {
             Text(text)
                 .padding()
             
-            Button("Who's there?") {
-                text = "John!"
+            if (isButtonVisible) {
+                Button("Who's there?") {
+                    text = "John!"
+                    isButtonVisible = false
+                }
             }
         }
         .padding()
