@@ -8,6 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    var body: some View {
+        TabView {
+            KnockKnock()
+                .tabItem {
+                    Label("Knock Knock", systemImage: "house")
+                }
+            CalculatorPage()
+                .tabItem {
+                    Label("Calculator", systemImage: "numbers")
+                }
+        }
+    }
+}
+
+struct KnockKnock: View {
     @State private var text = "Knock Knock!"
     @State private var isButtonVisible = true
     
@@ -25,6 +40,14 @@ struct ContentView: View {
             }
         }
         .padding()
+    }
+}
+
+struct CalculatorPage: View {
+    var body: some View {
+        VStack {
+            Text("Calculator!")
+        }
     }
 }
 
