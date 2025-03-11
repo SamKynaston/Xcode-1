@@ -14,6 +14,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text(text)
+                .font(.largeTitle)
                 .padding()
             
             if (isButtonVisible) {
