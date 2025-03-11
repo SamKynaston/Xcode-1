@@ -56,17 +56,83 @@ struct CalculatorPage: View {
                     .padding()
             }
             
-            TextField("No. 1", text: $num1)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .keyboardType(.decimalPad)
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .center)
-            TextField("No. 2", text: $num2)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .keyboardType(.decimalPad)
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .center)
+            // Implement Buttons here
+            HStack {
+                Button(action: { buttonHandler(val: 1) }) {
+                    Text("1")
+                        .frame(width: 50, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                Button(action: { buttonHandler(val: 2) }) {
+                    Text("2")
+                        .frame(width: 50, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                Button(action: { buttonHandler(val: 3) }) {
+                    Text("3")
+                        .frame(width: 50, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                Button(action: { buttonHandler(val: 4) }) {
+                    Text("4")
+                        .frame(width: 50, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                Button(action: { buttonHandler(val: 5) }) {
+                    Text("5")
+                        .frame(width: 50, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+            }
             
+            HStack {
+                Button(action: { buttonHandler(val: 6) }) {
+                    Text("6")
+                        .frame(width: 50, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                Button(action: { buttonHandler(val: 7) }) {
+                    Text("7")
+                        .frame(width: 50, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                Button(action: { buttonHandler(val: 8) }) {
+                    Text("8")
+                        .frame(width: 50, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                Button(action: { buttonHandler(val: 9) }) {
+                    Text("9")
+                        .frame(width: 50, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                Button(action: { buttonHandler(val: 0) }) {
+                    Text("0")
+                        .frame(width: 50, height: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+            }
+
             HStack {
                 Button(action: { calculate(operation: "+") }) {
                     Text("+")
@@ -103,7 +169,18 @@ struct CalculatorPage: View {
         }
     }
     
+    func buttonHandler(val: Int) {
+        if num1.isEmpty {
+            num1 = String(val)
+        } else if num2.isEmpty {
+            num2 = String(val)
+        }
+    }
+    
     func calculate(operation: String) {
+        if num1.isEmpty { return }
+        if num2.isEmpty { return }
+        
         guard let number1 = Double(num1), let number2 = Double(num2) else { return }
         
         switch operation {
@@ -118,6 +195,9 @@ struct CalculatorPage: View {
             default:
                 break
         }
+        
+        num1 = ""
+        num2 = ""
     }
 }
 
