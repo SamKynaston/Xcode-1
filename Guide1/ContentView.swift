@@ -48,15 +48,14 @@ struct CalculatorPage: View {
     @State private var num2 = ""
     @State private var operation = ""
     @State private var stage = 1
-    @State private var result: Double? = nil
-
+    @State private var text = ""
+    @State private var resetOnNextInput = false
+    
     var body: some View {
         VStack(spacing: 20) {
-            if let result = result {
-                Text("Result: \(String(format: "%.2f", result))")
-                    .font(.largeTitle)
-                    .padding()
-            }
+            Text(text)
+                .font(.largeTitle)
+                .padding()
 
             HStack {
                 Button(action: { numButtonHandler(val: 1) }) {
@@ -179,6 +178,13 @@ struct CalculatorPage: View {
     }
     
     func numButtonHandler(val: Int) {
+        if resetOnNextInput {
+            resetOnNextInput = false
+            text = ""
+        }
+        
+        text.append(String(val))
+
         if stage == 1 {
             num1.append(String(val))
         } else if stage == 2 {
@@ -187,11 +193,18 @@ struct CalculatorPage: View {
     }
     
     func operationButtonhandler(newOperator: String) {
+        if resetOnNextInput {
+            resetOnNextInput = false
+            text = ""
+        }
+        
         if stage == 1 && num1.isEmpty { return }
         if stage == 2 && num2.isEmpty { return }
         if stage > 2 { return }
         
         stage += 1
+        
+        text.append(newOperator)
         operation = newOperator
     }
     
@@ -199,6 +212,7 @@ struct CalculatorPage: View {
         if num1.isEmpty { return }
         if num2.isEmpty { return }
         
+        var result: Double? = nil
         guard let number1 = Double(num1), let number2 = Double(num2) else { return }
         
         switch operation {
@@ -214,10 +228,18 @@ struct CalculatorPage: View {
                 break
         }
         
+        text.append("=")
+        if let unwrappedResult = result {
+            text.append(String(format: "%.2f", unwrappedResult))
+        } else {
+            text.append("Error!")
+        }
+        
         num1 = ""
         num2 = ""
         operation = ""
         stage = 1
+        resetOnNextInput = true
     }
 }
 
